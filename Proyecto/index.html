@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>simulacion</title>
+    <!--bootstrap-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+    <!--Interfaz opciones-->
+
+    <section class="opciones">
+        <div class="container-fluid">
+                
+            <button type="button" class="btn btn-dark" onclick="ajustes()">Ajustes</button>
+            <button type="button" class="btn btn-dark" onclick="Manual()">Manual</button>
+            <button type="button" class="btn btn-dark" onclick="informacion()">Info</button>
+
+        </div>   
+    </section>     
+
+    <!--Interfaz Interactivo-->
+
+    <section class="areaTrabajo">
+        <!--Interfaz Casa-->
+        <div id="casa" ondrop="drop(event)" ondragover="allowDrop(event)" onload="move('element')" >
+
+
+         <!--
+
+         <img src="img/Basurero.png" id="-1" class="card-img-top" alt="..." 
+          draggable="false" ondragstart="drag(event)" style="position: relative; top: 0px; right: 0px; width: 70px;"></img>--> 
+        </div>
+
+        <!--Interfaz Electrodomesticos-->
+        <div id="areaElectrodomesticos">
+          <!--
+              Ejemplo
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                  <div class="card">
+                    <img src="img/Electrodomesticos/Televisor.png" class="card-img-top" alt="...">
+                  </div>
+                </div>
+            </div>
+
+            -->
+
+        </div>
+
+    </section>
+     
+
+    <section class="resultados">
+        <!--<div class="container-fluid">--> 
+            <!--Seccion de resultados-->
+            <div id="areaConsumoTarifa">
+                <img src="img/casa.png" alt="" id="casaIco">
+                <div>
+                  <h2 id="ConsumoKWH">0.00 Kwh</h2>
+                  <h2 id="TarifaLmp">0.00 Lps</h2>
+                </div>
+            </div>
+
+            <div id="areaTablaDatos">
+              <!-- TABLA DE PRUEBA-->
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Consumo Kwh</th>
+                    <th scope="col">Tempo Encendido</th>
+                    <th scope="col">Consumo Diario</th>
+                    <th scope="col">Consumo Mensual</th>
+                  </tr>
+                </thead>
+                <tbody id="TablaMostarDatos">
+
+                </tbody>
+              </table>
+            </div>
+        <!--</div>-->
+    </section>
+
+
+    <!--Pestañas Modales-->    
+
+  <div class="modal fade" id="modalinf" tabindex="-1" aria-labelledby="modalinfLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-titulo">Información</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cerrarModal()"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+          </div>
+      </div>
+  </div>
+
+    <!--Modal Ajustes-->
+  <div class="modal fade" id="modalOpcAjustes" tabindex="-1" aria-labelledby="modalOpcAjustesLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo">Información</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cerrarModalOpc()"></button>
+            </div>
+            <div class="modal-body" id="Body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <!--NUEVO--> 
+                <button type="button" class="btn btn-primary" onclick="tarifa()">Guardar</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!--Modal modelos-->
+  <div class="modal fade" id="modalModelos" tabindex="-1" aria-labelledby="modalModelosLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" id="Tipo_elec">
+                <h5 class="modal-title">Modelos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cerrarModalOpc()"></button>
+            </div>
+            <div class="modal-body" id="BodyModelo">
+              <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Consumo</th>
+                        <th scope="col">Horas diarias de uso</th>
+                    </tr>
+                </thead>
+                <tbody id="tiposModelos">
+                    <!--<tr>
+                        <td>Modelo 1</td>
+                        <td>0.08 KWH</td>
+                    </tr>-->
+                </tbody>
+            </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="cerrarModalModelos()">Guardar</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+    <!--Modal PDF-->
+    <div class="modal fade" id="modalManual" tabindex="-1" aria-labelledby="modalModelosLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Manual</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cerrarModalOpc()"></button>
+          </div>
+  
+          <div class="modal-body">
+            <div>
+              <iframe src="img/Manual.pdf" style="width:100%;height:700px;"></iframe>
+            </div>
+  
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/controller.js"></script>
+    
+</body>
+</html>
